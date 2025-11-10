@@ -1,0 +1,2 @@
+# MAGNETICA
+Project of Graduation
