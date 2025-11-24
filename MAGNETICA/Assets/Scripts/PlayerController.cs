@@ -17,11 +17,6 @@ public class PlayerController : MonoBehaviour
     public float hopHeight = 0.5f;  //같은 레인에서 통통 튀는 높이
     public float hopDuration = 0.2f;  //한 번 튀는 데 걸리는 시간
 
-    [Header("Visual")]
-    public SpriteRenderer spriteRenderer;
-    public Color nColor = Color.blue;
-    public Color sColor = Color.red;
-
     [Header("State")]
     public Polarity currentPolarity = Polarity.N;
     public bool isAlive = true;
@@ -56,13 +51,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        UpdateColor();
 
         if (rb != null)
         {
@@ -228,19 +220,12 @@ public class PlayerController : MonoBehaviour
     {
         //자성 전환
         currentPolarity = (currentPolarity == Polarity.N) ? Polarity.S : Polarity.N;
-        UpdateColor();
 
         //타일 위에 서 있는 상태에서 자성 바꾸면 즉시 재검사
         if (currentTile != null && currentTile.tilePolarity != currentPolarity)
         {
             Die();
         }
-    }
-
-    void UpdateColor()
-    {
-        if (spriteRenderer == null) return;
-        spriteRenderer.color = (currentPolarity == Polarity.N) ? nColor : sColor;
     }
 
     public void Die()

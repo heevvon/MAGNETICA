@@ -1,4 +1,4 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
 public class MagnetGround : MonoBehaviour
 {
@@ -8,11 +8,11 @@ public class MagnetGround : MonoBehaviour
     public Color sColor = new Color(1f, 0.6f, 0.6f);
 
     [Header("Lane Info")]
-    public int laneIndex = 0;  //0 = ì•„ë˜, 1 = ìœ„
-    public int nextLaneIndex = 0; //ì´ íƒ€ì¼ ëë‚˜ê³  í”Œë ˆì´ì–´ê°€ ê°€ì•¼ í•  ë ˆì¸
+    public int laneIndex = 0;  //0 = ¾Æ·¡, 1 = À§
+    public int nextLaneIndex = 0; //ÀÌ Å¸ÀÏ ³¡³ª°í ÇÃ·¹ÀÌ¾î°¡ °¡¾ß ÇÒ ·¹ÀÎ
 
     [Header("Next Tile Info")]
-    public MagnetGround nextTile;  //ì´ íƒ€ì¼ ë‹¤ìŒì— ë‚˜ì˜¬ íƒ€ì¼
+    public MagnetGround nextTile;  //ÀÌ Å¸ÀÏ ´ÙÀ½¿¡ ³ª¿Ã Å¸ÀÏ
 
     SpriteRenderer sr;
 

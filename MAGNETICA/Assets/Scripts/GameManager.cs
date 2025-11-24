@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         if (player == null)
         {
-            player = FindObjectOfType<PlayerController>();
+            player = FindFirstObjectByType<PlayerController>();
         }
 
         startX = (playerStartPoint != null) ? playerStartPoint.position.x : player.transform.position.x;

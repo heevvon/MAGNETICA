@@ -26,7 +26,7 @@ public class TileSpawner : MonoBehaviour
     private void Start()
     {
         if (player == null)
-            player = FindObjectOfType<PlayerController>();
+            player = FindFirstObjectByType<PlayerController>();
 
         if (player == null || tilePrefab == null)
         {
