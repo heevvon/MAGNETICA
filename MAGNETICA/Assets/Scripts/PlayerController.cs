@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using NUnit.Framework.Constraints;
+using TreeEditor;
+using UnityEngine;
 
 public enum Polarity { N, S }
 
@@ -7,46 +9,22 @@ public class PlayerController : MonoBehaviour
     [Header("Move Settings")]
     public float runSpeed = 5f;
 
-    [Header("Lane Settings")]
-    public float laneBottomY = -1f;
-    public float laneTopY = 2f;
-    public float laneJumpDuration = 0.25f;  //위/아래로 이동하는 시간
-    public float preJumpOffset = 0.1f;  //타일 오른쪽 끝에서 조금 앞에서 점프
-
-    [Header("Hop Settings")]
-    public float hopHeight = 0.5f;  //같은 레인에서 통통 튀는 높이
-    public float hopDuration = 0.2f;  //한 번 튀는 데 걸리는 시간
+    [Header("Speed Settings")]
+    public float speedIncreaseInterval = 10f; // 시간 간격
+    public float speedIncreaseAmount = 5f;    // 속도 증가량
+    public float maxRunSpeed = 100f;          // 속도 최대량
 
     [Header("State")]
-    public Polarity currentPolarity = Polarity.N;
     public bool isAlive = true;
     public bool canRun = false;
 
-    [Header("Speed Setting")]
-    public float speedIncreaseInterval = 10f; //시간 간격
-    public float speedIncreaseAmount = 5f; //속도 증가량
-    public float maxRunSpeed = 100; //속도 최대량
+    public Polarity currentPolarity = Polarity.N;  // 플레이어 현재 극성 상태
 
-    private float speedTimer = 0f; //경과 시간 체크용
+    private float speedTimer = 0f; // 경과 시간 체크용
+    private Rigidbody2D rb;
 
-    Rigidbody2D rb;
-
-    //레인 상태
-    int currentLaneIndex = 0;  // 0 = 아래, 1 = 위
-    bool isLaneJumping = false;
-    float laneJumpTimer = 0f;
-    float laneJumpStartY;
-    float laneJumpTargetY;
-    int laneJumpTargetIndex = 0;  //목표 레인 인덱스
-    float currentLaneJumpDuration;  //이번 레인 점프에 쓸 실제 시간
-
-    //같은 레인 안에서 통통 튀는 점프 상태
-    bool isHopping = false;
-    float hopTimer = 0f;
-
-    //현재 밟고 있는 타일 정보
-    MagnetGround currentTile = null;
-    bool hasJumpedForThisTile = false;
+    // 현재 밟고 있는 타일
+    private Collider2D currentTile = null;
 
     private void Awake()
     {
@@ -55,176 +33,79 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-
         if (rb != null)
         {
-            rb.gravityScale = 0f;  //중력 사용 X
+            rb.gravityScale = 20f; // 중력 빠르게 적용
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-
-        //시작은 아래 레인에 붙이기
-        Vector3 pos = transform.position;
-        pos.y = laneBottomY;
-        transform.position = pos;
-        currentLaneIndex = 0;
     }
 
     private void Update()
     {
-        if (!isAlive) return;
-        if (!canRun) return;
+        if (!isAlive || !canRun) return;
 
-        //일정 시간마다 스피드 증가
+        // 일정 시간마다 이동 속도 증가
         speedTimer += Time.deltaTime;
-        if(speedTimer >= speedIncreaseInterval)
+        if (speedTimer >= speedIncreaseInterval)
         {
             runSpeed += speedIncreaseAmount;
             runSpeed = Mathf.Clamp(runSpeed, 0f, maxRunSpeed);
-
             speedTimer = 0f;
         }
 
-        //X방향 자동 이동
-        transform.Translate(Vector2.right * runSpeed * Time.deltaTime);
-
-        //현재 레인의 기준 Y (아래/위)
-        float baseY = (currentLaneIndex == 0) ? laneBottomY : laneTopY;
-        Vector3 pos = transform.position;
-
-        //1순위. 레인 변경 점프 중이면, 레인 사이를 보간
-        if (isLaneJumping)
-        {
-            hopTimer = 0f;  //레인 점프 중엔 호핑 초기화
-            isHopping = false;
-
-            laneJumpTimer += Time.deltaTime;
-            float t = Mathf.Clamp01(
-                currentLaneJumpDuration > 0f
-                    ? laneJumpTimer / currentLaneJumpDuration
-                    : 1f
-            );
-
-            float newY = Mathf.Lerp(laneJumpStartY, laneJumpTargetY, t);
-            pos.y = newY;
-            transform.position = pos;
-
-            if (t >= 1f)
-            {
-                isLaneJumping = false;
-                currentLaneIndex = laneJumpTargetIndex;  //목표 레인으로 확실하게 변경
-            }
-        }
-        //2순위. 같은 레인에서 통통 튀는 연출
-        else if (isHopping)
-        {
-            hopTimer += Time.deltaTime;
-            float t = Mathf.Clamp01(hopTimer / hopDuration);
-
-            float curve = 4f * t * (1f - t);
-            float offsetY = hopHeight * curve;
-
-            //아래 레인(0)에서는 위로 튀고, 위 레인(1)에서는 아래로 튀게
-            float signedOffset = (currentLaneIndex == 0)
-                ? +offsetY  //아래 레인: 위로 점프
-                : -offsetY;  //위 레인: 아래로 점프(거꾸로 튀는 느낌)
-
-            pos.y = baseY + signedOffset;
-            transform.position = pos;
-
-            if (t >= 1f)
-            {
-                isHopping = false;
-                pos.y = baseY;  //레인 기준 Y로 다시 스냅
-                transform.position = pos;
-            }
-        }
-
-
-        //타일 끝에 도달했으면, 해당 타일의 nextLaneIndex로 점프
-        HandleTileEndAutoJump();
-
-        //자성 전환 (Space)
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TogglePolarity();
+            TogglePolarityAndFlip();
         }
     }
 
-    void HandleTileEndAutoJump()
+    void TogglePolarityAndFlip()
     {
-        if (currentTile == null) return;
-        if (hasJumpedForThisTile) return;
-
-        Collider2D col = currentTile.GetComponent<Collider2D>();
-        if (col == null) return;
-
-        float tileRightX = col.bounds.max.x;
-
-        if (transform.position.x >= tileRightX - preJumpOffset)
-        {
-            int nextLane = currentTile.nextLaneIndex;
-
-            if (nextLane != currentLaneIndex)
-            {
-                //현재 타일 정보도 같이 넘김
-                StartLaneJump(nextLane, currentTile);
-            }
-            else
-            {
-                Jump();  //같은 레인: 그냥 통통 튀는 점프
-            }
-
-            hasJumpedForThisTile = true;
-        }
-    }
-
-
-    //같은 레인에서 통통 튀는 점프 시작
-    void Jump()
-    {
-        if (isLaneJumping) return;  //레인 변경 중이면 무시
-
-        isHopping = true;
-        hopTimer = 0f;
-    }
-
-    //레인 변경 점프 시작
-    void StartLaneJump(int targetLaneIndex, MagnetGround fromTile)
-    {
-        isLaneJumping = true;
-        laneJumpTimer = 0f;
-        laneJumpStartY = transform.position.y;
-
-        laneJumpTargetIndex = targetLaneIndex;
-        laneJumpTargetY = (targetLaneIndex == 0) ? laneBottomY : laneTopY;
-
-        currentLaneJumpDuration = laneJumpDuration;
-
-        if (fromTile != null && fromTile.nextTile != null)
-        {
-            Collider2D nextCol = fromTile.nextTile.GetComponent<Collider2D>();
-            if (nextCol != null)
-            {
-                float destX = nextCol.bounds.center.x;
-                float distX = destX - transform.position.x; 
-
-                if (distX < 0.1f) distX = 0.1f;
-
-                currentLaneJumpDuration = distX / runSpeed;
-            }
-        }
-    }
-
-
-    void TogglePolarity()
-    {
-        //자성 전환
+        // 자성 전환
         currentPolarity = (currentPolarity == Polarity.N) ? Polarity.S : Polarity.N;
 
-        //타일 위에 서 있는 상태에서 자성 바꾸면 즉시 재검사
-        if (currentTile != null && currentTile.tilePolarity != currentPolarity)
+        // 중력 반전
+        rb.gravityScale *= -1;
+
+        // 플레이어 뒤집기(y축)
+        Vector3 scale = transform.localScale;
+        scale.y *= -1;
+        transform.localScale = scale;
+
+        // 현재 몸이 어디 붙어있나 확인
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * Mathf.Sign(rb.gravityScale), 0.2f);
+        if (hit.collider != null)
         {
-            Die();
+            currentTile = hit.collider;
+            Debug.Log("플레이어가 새로운 표면에 붙음: " + currentTile.name);
+        }
+        else
+        {
+            currentTile = null; // 떠 있음
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (!isAlive || !canRun) return;
+
+        // X 방향 자동 이동
+        rb.linearVelocity = new Vector2(runSpeed, rb.linearVelocity.y);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 타일 충돌 감지
+        currentTile = collision.collider;
+        // 밟은 타일 이름 출력 (디버깅용)
+        Debug.Log("밟은 타일: " + currentTile.name);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (currentTile == collision.collider)
+        {
+            currentTile = null;
+            Debug.Log("타일 벗어남");
         }
     }
 
@@ -235,39 +116,8 @@ public class PlayerController : MonoBehaviour
         canRun = false;
 
         if (GameManager.Instance != null)
+        {
             GameManager.Instance.GameOver();
-    }
-
-    //타일 밟았을 때(자성 체크 + 현재 타일 갱신)
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        MagnetGround tile = collision.collider.GetComponent<MagnetGround>();
-        if (tile != null)
-        {
-            //자성 틀리면 죽음
-            if (tile.tilePolarity != currentPolarity)
-            {
-                Die();
-                return;
-            }
-
-            //자성 맞으면 이 타일이 현재 타일
-            currentTile = tile;
-            hasJumpedForThisTile = false;
-
-            //이 타일 레인으로 Y 위치 스냅
-            currentLaneIndex = tile.laneIndex;
-            Vector3 pos = transform.position;
-            pos.y = (currentLaneIndex == 0) ? laneBottomY : laneTopY;
-            transform.position = pos;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (currentTile != null && collision.collider.GetComponent<MagnetGround>() == currentTile)
-        {
-            //currentTile = null;
         }
     }
 }

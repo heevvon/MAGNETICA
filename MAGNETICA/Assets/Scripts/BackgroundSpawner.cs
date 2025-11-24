@@ -19,7 +19,7 @@ public class BackgroundSpawner : MonoBehaviour
         backgrounds.Add(firstBG);
 
         // 다음 배경 위치 갱신
-        nextPosition.x += 76f;
+        nextPosition.x += 115f;
 
         nextSpawnTime = Time.time + spawnInterval;
     }
@@ -41,7 +41,7 @@ public class BackgroundSpawner : MonoBehaviour
             }
 
             // 다음 배경 위치 갱신
-            nextPosition.x += 76f;
+            nextPosition.x += 115f;
 
             // 다음 생성 시간 갱신
             nextSpawnTime = Time.time + spawnInterval;
