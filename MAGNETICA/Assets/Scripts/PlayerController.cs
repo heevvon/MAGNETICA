@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Polarity { N, S }
 
@@ -164,10 +165,8 @@ public class PlayerController : MonoBehaviour
         isAlive = false;
         canRun = false;
 
-        if (GameManager.Instance != null)
-            GameManager.Instance.GameOver();
-
         Destroy(gameObject);
+        SceneManager.LoadScene("GameOver");
     }
 
     void PlayJumpSound()
@@ -176,5 +175,11 @@ public class PlayerController : MonoBehaviour
         {
             audioSource.PlayOneShot(jumpSfx);
         }
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

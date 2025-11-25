@@ -1,138 +1,39 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
-
-public enum GameState
-{
-    Ready,
-    Playing,
-    GameOver
-}
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip startSfx;
+    public AudioClip exitSfx;
 
-    [Header("References")]
-    public PlayerController player;
-    public Transform playerStartPoint;  //없으면 Player 시작 위치 그대로 사용
-
-    [Header("UI")]
-    public GameObject startPanel;
-    public GameObject gameOverPanel;
-    public TMP_Text distanceTextInGame; 
-    public TMP_Text distanceTextResult;
-
-    GameState state = GameState.Ready;
-    float startX;
-    float distance;
-
-    private void Awake()
+    // 메인 씬으로 넘어가기
+    public void StartGame()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        Time.timeScale = 1.0f;
+        PlaySfx(startSfx);
+        SceneManager.LoadScene("Main");   // 씬 이름은 너가 사용하는 이름으로 변경 가능
     }
 
-    private void Start()
+    // 게임 종료
+    public void ExitGame()
     {
-        if (player == null)
-        {
-            player = FindFirstObjectByType<PlayerController>();
-        }
-
-        startX = (playerStartPoint != null) ? playerStartPoint.position.x : player.transform.position.x;
-
-        if (startPanel != null) startPanel.SetActive(true);
-        if (gameOverPanel != null) gameOverPanel.SetActive(false);
-
-        UpdateDistanceUI(0);
-
-        if (distanceTextInGame != null)
-            distanceTextInGame.gameObject.SetActive(false);
-    }
-
-    private void Update()
-    {
-        switch (state)
-        {
-            case GameState.Ready:
-                //아무 키나 누르면 시작
-                if (Input.anyKeyDown)
-                {
-                    StartGame();
-                }
-                break;
-
-            case GameState.Playing:
-                UpdateDistance();
-                break;
-
-            case GameState.GameOver:
-                break;
-        }
-    }
-
-    void StartGame()
-    {
-        state = GameState.Playing;
-
-        if (startPanel != null)
-            startPanel.SetActive(false);
-
-        if (distanceTextInGame != null)
-            distanceTextInGame.gameObject.SetActive(false);
-
-        if (player != null)
-            player.canRun = true;
-    }
-
-    void UpdateDistance()
-    {
-        if (player == null) return;
-
-        float x = player.transform.position.x;
-        distance = Mathf.Max(0f, x - startX);
-
-        UpdateDistanceUI(distance);
-    }
-
-    void UpdateDistanceUI(float d)
-    {
-        if (distanceTextInGame != null)
-        {
-            distanceTextInGame.text = string.Format("{0:0} m", d);
-        }
-    }
-
-    public void GameOver()
-    {
-        if (state == GameState.GameOver) return;
-
-        state = GameState.GameOver;
-
-        if (distanceTextResult != null)
-        {
-            distanceTextResult.text = string.Format("You went {0:0} m", distance);
-        }
-
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
-
-        if (distanceTextInGame != null)
-            distanceTextInGame.gameObject.SetActive(false);
-    }
-
-    public void OnClickRestart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void OnClickQuit()
-    {
+        PlaySfx(exitSfx);
         Application.Quit();
+
 #if UNITY_EDITOR
+        // 유니티 에디터에서 종료 시 플레이모드 멈추기
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    // 버튼 클릭 사운드 재생
+    void PlaySfx(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }
