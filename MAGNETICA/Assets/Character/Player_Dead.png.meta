@@ -5,15 +5,6 @@ TextureImporter:
   - first:
       213: -5529231438030901389
     second: Player_Dead_0
-  - first:
-      213: 6218032439882275843
-    second: Player_Dead_1
-  - first:
-      213: 6736401122079118152
-    second: Player_Dead_2
-  - first:
-      213: 4590219750869751383
-    second: Player_Dead_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -114,8 +105,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1350
-        height: 1360
+        width: 1530
+        height: 1740
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac94022c6def59048b3cc62d94f7d8ae
-      internalID: 1055237189
+      spriteID: 896d52b3858ec9d489c7f7e63c778607
+      internalID: -1340501157
       vertices: []
       indices: 
       edges: []
@@ -134,10 +125,10 @@ TextureImporter:
       name: Player_Dead_1
       rect:
         serializedVersion: 2
-        x: 1350
+        x: 1530
         y: 0
-        width: 1350
-        height: 1360
+        width: 1530
+        height: 1740
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e482193e4427d2408b5121746be7a17
-      internalID: 168058787
+      spriteID: bc0a5e4897e569e4a8bda04d5c25f1bb
+      internalID: -60654879
       vertices: []
       indices: 
       edges: []
@@ -156,10 +147,10 @@ TextureImporter:
       name: Player_Dead_2
       rect:
         serializedVersion: 2
-        x: 2700
+        x: 3060
         y: 0
-        width: 1350
-        height: 1360
+        width: 1530
+        height: 1740
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,8 +159,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc845fc0ee933d34b8beb565c38b2391
-      internalID: 446029394
+      spriteID: 0824978e2c833d34b87d90b0207f8a83
+      internalID: -779645409
       vertices: []
       indices: 
       edges: []
@@ -178,10 +169,10 @@ TextureImporter:
       name: Player_Dead_3
       rect:
         serializedVersion: 2
-        x: 4050
+        x: 4590
         y: 0
-        width: 1350
-        height: 1360
+        width: 1530
+        height: 1740
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,8 +181,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af7af393576513749a53721a3bf59209
-      internalID: 1847139641
+      spriteID: 5941d31977e91124298bf6190f5aba53
+      internalID: -992261252
       vertices: []
       indices: 
       edges: []
@@ -200,7 +191,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4598b1f0d23792c4a858fbba541bdaa7
+    spriteID: cc8d937e0b07feb41af79367d7464c69
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +201,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Player_Dead_0: 1055237189
-      Player_Dead_1: 168058787
-      Player_Dead_2: 446029394
-      Player_Dead_3: 1847139641
+      Player_Dead_0: -1340501157
+      Player_Dead_1: -60654879
+      Player_Dead_2: -779645409
+      Player_Dead_3: -992261252
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
