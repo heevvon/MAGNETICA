@@ -16,11 +16,14 @@ public class UIManager : MonoBehaviour
 
     public PlayerController playerController;
 
+    public static UIManager Instance;
+    public UIHeartBar heartBar;
+
     void Start()
     {
         if (settingPanel != null)
         {
-            settingPanel.SetActive(false); 
+            settingPanel.SetActive(false);
         }
     }
 
@@ -32,6 +35,11 @@ public class UIManager : MonoBehaviour
             PlaySfx(Settingsfx);
             ToggleSettingPanel();
         }
+    }
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
     public void ToggleSettingPanel()
@@ -68,6 +76,11 @@ public class UIManager : MonoBehaviour
         {
             audioSource.PlayOneShot(clip);
         }
+    }
+
+    public void UpdateHeartUI(float health)
+    {
+        heartBar.UpdateHearts(health);
     }
 
 }

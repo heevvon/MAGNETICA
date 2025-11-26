@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f1f332db86e56cc4b9598d75a8b8a9db
+guid: b88f74e91be047544997d3744d540f5c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8085525780872137955
-    second: KakaoTalk_20251126_020155757_0
+      213: -4144336939780473603
+    second: OVER_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,33 +84,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Win64
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KakaoTalk_20251126_020155757_0
+      name: OVER_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 7690
-        height: 3500
+        y: 8
+        width: 274
+        height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3ec8527dbde853070800000000000000
-      internalID: 8085525780872137955
+      spriteID: dfcfadac28b5c76c0800000000000000
+      internalID: -4144336939780473603
       vertices: []
       indices: 
       edges: []
@@ -151,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c41525838a929f24abb6d24c65f60689
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      KakaoTalk_20251126_020155757_0: 8085525780872137955
+      OVER_0: -4144336939780473603
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

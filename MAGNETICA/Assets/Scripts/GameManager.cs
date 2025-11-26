@@ -16,6 +16,15 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Main");   // 씬 이름은 너가 사용하는 이름으로 변경 가능
     }
 
+    public void Update()
+    {
+        // ⚡ R 키 누르면 메인 메뉴로 복귀
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartGame();
+        }
+    }
+
     // 게임 종료
     public void ExitGame()
     {

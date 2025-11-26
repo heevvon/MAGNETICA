@@ -1,10 +1,28 @@
 fileFormatVersion: 2
-guid: f1f332db86e56cc4b9598d75a8b8a9db
+guid: a3668762567200e48983b537254f2bd6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8085525780872137955
-    second: KakaoTalk_20251126_020155757_0
+      213: -8591278150761359891
+    second: GAME OVER-1_0
+  - first:
+      213: 6909954701850386368
+    second: GAME OVER-1_1
+  - first:
+      213: 5427598031271611811
+    second: GAME OVER-1_2
+  - first:
+      213: 2521661179323103077
+    second: GAME OVER-1_3
+  - first:
+      213: 8290546043463800172
+    second: GAME OVER-1_4
+  - first:
+      213: -3144162003956526792
+    second: GAME OVER-1_5
+  - first:
+      213: -8702187223285145431
+    second: GAME OVER-1_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,33 +102,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Win64
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,23 +118,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KakaoTalk_20251126_020155757_0
+      name: GAME OVER-1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 7690
-        height: 3500
+        y: 8
+        width: 284
+        height: 134
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3ec8527dbde853070800000000000000
-      internalID: 8085525780872137955
+      spriteID: 568ff07112334864bbc77eacdc487342
+      internalID: -2044424014
       vertices: []
       indices: 
       edges: []
@@ -151,7 +143,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8240c0078a3984242925ad0eb9a4929b
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +153,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      KakaoTalk_20251126_020155757_0: 8085525780872137955
+      GAME OVER-1_0: -2044424014
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -140,14 +140,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 닿은 타일 저장
-        currentTile = collision.collider;
-
-        // 장애물 충돌 시 사망
         if (collision.collider.CompareTag("Obstacle"))
         {
-            Die();
+            GetComponent<PlayerHealth>().TakeDamage(1f);
+            return;
         }
+
+        // 닿은 타일 저장
+        currentTile = collision.collider;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
