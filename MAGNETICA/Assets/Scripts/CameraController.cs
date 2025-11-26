@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 
     [Header("X-axis Movement Range")]
     public float minX = -10f; // 카메라 최소 X값
-    public float maxX = 10f;  // 카메라 최대 X값
+    public float maxX = 6000f;  // 카메라 최대 X값
 
     [Header("Y Fixed Position")]
     public float fixedY = 12f; // Y 위치를 고정할 값

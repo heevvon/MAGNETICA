@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 5f;   // 5칸
     public float currentHealth = 5f;
     public float healAmount = 0.5f;   // 회복량
-    public float healInterval = 5f;   // 5초마다 회복
+    public float healInterval = 10f;   // 10초마다 회복
     float healTimer = 0f;
 
     public System.Action<float> OnHealthChanged;  // UI 업데이트용

@@ -6,11 +6,11 @@ public enum Polarity { N, S }
 public class PlayerController : MonoBehaviour
 { 
     [Header("Move Settings")]
-    public float runSpeed = 5f;
+    public float runSpeed = 25f;
 
     [Header("Speed Settings")]
-    public float speedIncreaseInterval = 10f;
-    public float speedIncreaseAmount = 5f;
+    public float speedIncreaseInterval = 25f;
+    public float speedIncreaseAmount = 3f;
     public float maxRunSpeed = 100f;
 
     [Header("State")]
